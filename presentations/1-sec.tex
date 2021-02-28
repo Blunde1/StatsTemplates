@@ -1,0 +1,60 @@
+\section{Blocks}
+
+\begin{frame}{Custom blocks}
+	Blocks can have different colours for effect.
+	\begin{myblock}{Poisson GLM might look good with yellow block}{bg=yellow!05,fg=black}{bg=yellow!20, fg=black}
+		\begin{itemize}
+			\item $N_i\sim \text{Poisson}(\lambda_i)$ for observation $i$.
+		\end{itemize}
+		$$ \log \lambda_i = \mathbf{x}_i^T\beta \text{ (GLM) } $$
+		$$ \log \lambda_i = \mathbf{x}_i^T\beta + \sum_j f_j(x_{ij}) \text{ (GAM) } $$
+	\end{myblock}
+	\begin{myblock}{Gamma GLM might loog good inside the green block}{bg=green!05,fg=black}{bg=green!20, fg=black}
+		\begin{itemize}
+			\item $S_i\sim \text{Gamma}(\mu_i,\nu)$ where $\mathbb{E}(S_i)=\mu_i$.
+		\end{itemize}
+		$$ \log \mu_i = \mathbf{x}_i^T\beta \text{ (GLM) } $$
+		$$ \log \mu_i = \mathbf{x}_i^T\beta + \sum_j f_j(x_{ij}) \text{ (GAM) } $$
+	\end{myblock}
+\end{frame}
+
+\begin{frame}[fragile, t]{Claim frequency and claim severity}
+	\vspace{-2.5em}
+	\begin{block}{Model for claim frequency}
+		Assume $N_i \sim \text{Poisson}(\lambda_i)$ for customer $i$. 
+		$$ \log \lambda_i = \bm{x}_i^T \bm{\beta} \quad \text{(GLM)}$$
+		$$ \log \lambda_i = \bm{x}_i^T \bm{\beta} + \sum_j f_j(x_{ij}) \quad \text{(GAM)}$$
+		
+	\end{block} 
+	
+	\begin{exampleblock}{Model for claim size}
+		Assume $S_i \sim \text{Gamma}(\psi_i, \nu)$ where $\E(S_i) = \psi_i$.
+		$$ \log \psi_i = \bm{x}_i^T \bm{\beta} \quad \text{(GLM)}$$
+		$$ \log \psi_i = \bm{x}_i^T \bm{\beta} + \sum_j f_j(x_{ij}) \quad \text{(GAM)}$$
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Split frame and visible}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+	\begin{myblock}{Left split col}{bg=blue!5,fg=black}{bg=blue!10, fg=black}
+		\begin{itemize}
+			\item<1-> Make good points
+			\item<2-> Sequentially
+			\item<3-> For impact!
+		\end{itemize}
+	\end{myblock}
+\end{column}
+\visible<4->{
+	\begin{column}{0.48\textwidth}
+		\begin{myblock}{Right split col}{bg=green!05,fg=black}{bg=green!20, fg=black}
+			\begin{itemize}
+				\item Show this column later
+				\item Give more flexibility
+				\item Write amazing things
+			\end{itemize}
+		\end{myblock}
+	\end{column}
+}
+\end{columns}
+\end{frame}

@@ -1,0 +1,208 @@
+\documentclass[10pt, usenames,dvipsnames, aspectratio=169]{beamer}
+%\usefonttheme{serif}
+% Options for aspectratio: 1610, 149, 54, 43 and 32, 169
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}% Alternative: 'norsk'
+\usepackage[expansion=false]{microtype}% Fixes to make typography better
+\usecolortheme{beaver} % Decent options: beaver, rose, crane
+\usepackage{booktabs}% Professional tables
+\setbeamertemplate{itemize items}[ball]
+
+%\usepackage{etoolbox}
+\useinnertheme[shadow=true]{rounded}
+%\setbeamercolor{block title}{use=structure,fg=structure.fg,bg=structure.fg!20!bg}
+%\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+
+%\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!20!bg}
+%\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!50!bg}
+
+% Turn off on on default math font
+%\usepackage{mathptmx}
+
+\graphicspath{{./fig/}}
+\title{\LaTeX-Stats-Template}
+\author{{Berent Å. S. Lunde} \and {Jens Christian Wahl}\\[2ex] \includegraphics[scale=0.22]{NR-logo_utvidet_stor_rgb.jpg}}
+\institute{}
+\date{Workshop or Event\\
+	Place, Location\\
+	15th February 2021}
+
+% -------------------------------------------------------------------------
+% Package imports
+% -------------------------------------------------------------------------
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{epstopdf}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{geometry}
+\usepackage{graphics}
+\usepackage{multimedia} % for movies and sound
+\usepackage{times}
+\usepackage{xcolor,colortbl}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{mathtools}
+
+% Tikz setup
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shadings}
+
+% Graphics setup
+\DeclareGraphicsRule{.ai}{pdf}{.ai}{} 
+
+% Colour setup - Especially for frames
+\definecolor{shadowbg}{RGB}{51,51,51}
+\definecolor{secinhead}{RGB}{249,196,95}
+\definecolor{purered}{RGB}{7,45,152}
+\definecolor{titlered}{RGB}{7,45,152}
+\definecolor{bggray}{RGB}{242,242,242}
+\definecolor{bggraydark}{RGB}{217,217,217}
+\setbeamercolor{secsubsec}{fg=secinhead,bg=black}
+\setbeamercolor{shadow}{fg=secinhead,bg=shadowbg}
+\newcommand{\done}{\cellcolor{teal}done}  %{0.9}
+\newcommand{\hcyan}[1]{{\color{teal} #1}}
+\setbeamercolor*{title}{bg=bggray,fg=titlered}
+\AtBeginEnvironment{theorem}{%
+	\setbeamercolor{block title}{fg=titlered, bg=bggraydark}
+	\setbeamercolor{block body}{fg=black,bg=bggray}
+}
+\AtBeginEnvironment{proof}{%
+	\setbeamercolor{block title}{bg=bggraydark}
+	\setbeamercolor{block body}{fg=black,bg=bggray}
+}
+\AtBeginEnvironment{example}{%
+	\setbeamercolor{block title example}{bg=bggraydark}
+	\setbeamercolor{block body example}{fg=black,bg=bggray}
+}
+\AtBeginEnvironment{definition}{%
+	\setbeamercolor{block title}{bg=bggraydark}
+	\setbeamercolor{block body}{fg=black,bg=bggray}
+}
+
+\setbeamercolor{block title example}{bg=bggraydark}
+\setbeamercolor{block body example}{fg=black,bg=bggray}
+\setbeamercolor{block title}{bg=bggraydark}
+\setbeamercolor{block body}{fg=black,bg=bggray}
+
+\setbeamercolor{frametitle}{fg=titlered,bg=bggray}
+\setbeamercolor{section in head/foot}{fg=titlered, bg=secinhead}
+\setbeamercolor{author in head/foot}{fg=titlered, bg=white}
+\setbeamercolor{date in head/foot}{fg=titlered}
+
+% Code setup: lstings and algorithm
+\lstset{ 
+	language=R,                     % the language of the code
+	basicstyle=\scriptsize\ttfamily, % the size of the fonts that are used for the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\scriptsize\color{Blue},  % the style that is used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it is 1, each line
+	% will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{gray!05},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	frame=single,                   % adds a frame around the code
+	rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+	tabsize=2,                      % sets default tabsize to 2 spaces
+	captionpos=b,                   % sets the caption-position to bottom
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+	keywordstyle=\color{RoyalBlue},      % keyword style
+	commentstyle=\color{YellowGreen},   % comment style
+	stringstyle=\color{ForestGreen}      % string literal style
+} 
+\providecommand{\tabularnewline}{\\}
+%\floatstyle{ruled}
+%\newfloat{algorithm}{tbp}{loa}
+\providecommand{\algorithmname}{Algorithm}
+%\floatname{algorithm}{\protect\algorithmname}
+
+% -------------------------------------------------------------------------
+% Frame setup
+% -------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\AtBeginSection{
+	\begin{frame}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+% Footer: Section highlighted and frame / total frames
+% Could potentially add logo, see commented out in header
+\addtobeamertemplate{footline}{
+	\leavevmode
+	\hbox{
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+			\hspace*{\fill}\insertsectionnavigationhorizontal{0.7\paperwidth}{}{}\hspace*{\fill}
+			\makebox[0pt][l]{\,\insertframenumber{} / \inserttotalframenumber}
+	\end{beamercolorbox}}
+}
+
+% NEWCOMMANDS
+\newcommand{\E}{\ensuremath{\mathbb{E}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\tr}{\mathrm{tr}}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Blocks
+\setbeamertemplate{blocks}[shadow=true]
+\newenvironment{myblock}[3]{%
+	\setbeamercolor{block body}{#2}
+	\setbeamercolor{block title}{#3}
+	\begin{block}{#1}}{\end{block}}
+
+
+\begin{document}	
+	
+\tikzstyle{every picture}+=[remember picture]
+% Header
+\addtobeamertemplate{frametitle}{}{%
+	\begin{tikzpicture}[remember picture,overlay]
+	\tikz\draw[draw=none,top color=gray,bottom color=shadowbg!10] (1,-0.35) rectangle (1.1\paperwidth,-0.25);
+	%\node[anchor=south west,yshift=0pt, xshift=3pt] at (current page.south west){\includegraphics[height=1.4cm]{figures/UiS_main_logo_positive_CMYK_English.ai}};
+	%\node[anchor=south, yshift=0pt, xshift=4pt] at (current page.south){\small{\textcolor{black}{Berent Å. S. Lunde}    \textcolor{brown}{Information in local curvature}}};
+	\end{tikzpicture}}
+{
+	\setbeamertemplate{footline}{} 
+	\begin{frame}
+		\titlepage
+	\end{frame}
+}
+
+\begin{frame}{Agenda}
+	% use \tableofcontents or manual inserttion
+	\tableofcontents
+%	\begin{enumerate}
+%		\item This is the first section \\~\\
+%		\item This is the second \\~\\
+%		\item Space between items
+%	\end{enumerate}
+\end{frame}
+
+% Include sections
+\input{1-sec.tex}
+\input{2-sec.tex}
+\input{3-sec.tex}
+
+\begin{frame}{Questions?}
+	
+\end{frame}
+
+%\begin{frame}{Bibliography}
+%	\bibliographystyle{apalike}
+%	\scriptsize\bibliography{Bibliography}   % name your BibTeX data base
+%\end{frame}
+
+\end{document}
