@@ -52,6 +52,7 @@
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{mathtools}
+\usepackage{float}
 
 % Tikz setup
 \usetikzlibrary{arrows,shapes}
@@ -124,10 +125,10 @@
 	stringstyle=\color{ForestGreen}      % string literal style
 } 
 \providecommand{\tabularnewline}{\\}
-%\floatstyle{ruled}
-%\newfloat{algorithm}{tbp}{loa}
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
 \providecommand{\algorithmname}{Algorithm}
-%\floatname{algorithm}{\protect\algorithmname}
+\floatname{algorithm}{\protect\algorithmname}
 
 % -------------------------------------------------------------------------
 % Frame setup

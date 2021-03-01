@@ -1,7 +1,89 @@
 \section{Algorithms}
 
-\begin{frame}{Algorithm environment}
+\begin{frame}[fragile]{Algorithm environment}
+\begin{algorithm}[H]
+	\scriptsize{
+	\begin{tabbing}
+		\hspace{2em} \= \hspace{2em} \= \hspace{2em} \= \\
+		{\bfseries Input}: \\
+		\> - A training set $\mathcal{D}_n=\{(\mathbf{x}_i, y_{i})\}_{i=1}^n$,\\
+		\> - a family of base-learners $\mathcal{H}$,\\
+		
+		{\bfseries Do}: \\
+		1. Initialize the training weights: $w_i=\frac{1}{n},~i=1,\cdots,n$\\
+		
+		2. {\bfseries for} $k = 1$ to $K$: \\
+		
+		\>	$i)$ Fit a classifier, $f_k(\mathbf{x})$, to the training data using weights $w_i$.\\
+		\>\> $f_k = \arg\min \sum_{i=1}^{n}w_i I(y_i\neq f(\mathbf{x}_i))$\\
+		
+		\> $ii)$ Compute model-weight\\
+		\>\> $\alpha_k = \log\left( \frac{1-\text{err}_k}{\text{err}_k} \right),~
+		\text{err}_k = \frac{\sum_{i=1}^{n}w_i I(y_i\neq f(\mathbf{x}_i))}{\sum_{i=1}^{n}w_i }$\\
+		
+		\> $iii)$ Recompute training weights:\\
+		\>\> $w_i \leftarrow w_i \exp\left( \alpha_k I(y_i\neq f_k(\mathbf{x}_i))\right), ~ i=1,\cdots,n$\\
+		\hspace{0.4cm}{\bfseries end for} \\
+		
+		3. {\bfseries Return} $f^{(K)}(\mathbf{x})=\sum_{k=1}^{K}\alpha_k f_k(\mathbf{x})$ to use with \texttt{sign}$()$.
+	\end{tabbing}
+Comment here that the exponential loss is crucial for AdaBoost.
+\vspace{0.5cm}
+\caption{\label{alg:adaboost}AdaBoost: First boosting algorithm}
+}
+\end{algorithm}
 \end{frame}
 
-\begin{frame}{Specific R-coding}
+\begin{frame}[fragile]{Algorithm environment keeps track}
+	\begin{algorithm}[H]
+		\scriptsize{
+			\begin{tabbing}
+				\hspace{2em} \= \hspace{2em} \= \hspace{2em} \= \\
+				{\bfseries Input}: \\
+				\> - A training set $\mathcal{D}_n=\{(\mathbf{x}_i, y_{i})\}_{i=1}^n$,\\
+				\> - a differentiable loss $l(y,f(\mathbf{x}))$,\\
+				\> - a family of base-learners $\mathcal{H}$,\\
+				%\> \colorbox{blue!20}{- one or more tree-complexity regularization criteria.}\\
+				
+				{\bfseries Do}: \\
+				1. Initialize model with a constant value:\\
+				\> $f^{(0)} = \underset{\eta}{\arg\min} \sum_{i=1}^n l(y_i, \eta).$\\
+				
+				2. {\bfseries for} $k = 1$ to $K$: \\
+				
+				\>	$i)$ \colorbox{blue!20}{Compute derivatives $g_i$ for all $i=1:n$.}\\
+				
+				\> $ii)$ \colorbox{green!20}{Fit a base-learner $f_k(\mathbf{x})\in\mathcal{H}$ to $\{-g_i,\mathbf{x}_i\}_{i=1}^n$ using MSE-loss.}\\
+				
+				\> $iii)$ Find an optimized scaling $\alpha_k$ of $f_k$:\\
+				\>\> $\hat\alpha_k = \underset{\alpha}{\arg\min} \sum_{i=1}^n l(y_i, f^{(k-1)}(\mathbf{x}_i)+\alpha f_k(\mathbf{x}_i) )$.\\
+				
+				\>	$v)$ Update the model with a scaled base-learner ($\delta$ "small"):
+				$f^{(k)}(\mathbf{x}) = f^{(k-1)}(\mathbf{x}) + \delta \hat\alpha_k f_k(\mathbf{x}).$\\
+				\hspace{0.4cm}{\bfseries end for} \\
+				
+				3. {\bfseries Return} $f^{(K)}(\mathbf{x})$.%=\sum_{k=0}^{K}f_k(\features)$.\\
+			\end{tabbing}
+			\colorbox{blue!20}{Blue} and \colorbox{green!20}{green} may be used to signify something important.
+			For example differences from Algorithm \ref{alg:adaboost}.
+			\vspace{0.5cm}
+			
+			\caption{First order gradient boosting}
+		}
+	\end{algorithm}
+\end{frame}
+
+\begin{frame}[fragile]{Specific R-coding}
+\begin{lstlisting}[language=R]
+x <- runif( 500, 0, 4 )
+y <- rnorm( 500, x, 1 )
+x.test <- runif( 500, 0, 4 )
+y.test <- rnorm( 500, x.test, 1 )
+# Train gbtorch ensemble
+mod <- gbt.train( y, as.matrix(x) )
+y.pred <- predict( mod, as.matrix( x.test ) )
+# Plot predictions on test data
+plot( x.test, y.test )
+points( x.test, y.pred, col="red" )
+\end{lstlisting}
 \end{frame}
