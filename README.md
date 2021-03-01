@@ -1,2 +1,2 @@
 # StatsTemplates
-Various tempaltes and snippets relevant to statistics
+Various templates and snippets relevant to statistics
